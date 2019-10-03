@@ -1,5 +1,3 @@
-<div *ngIf="afAuth.user | async as user">
-    <p>Name: {{ user.displayName }}</p>
-    <p>Email: {{ user.email }}</p>
-    <p>ID: {{ user.uid }}</p>
+<div *ngIf="item | async as userProfile">
+    <p>{{ userProfile | json }}</p>
 </div>
