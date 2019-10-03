@@ -1,8 +1,11 @@
 <div class="login-container">
   <div class="ui card login-card">
     <div class="content">
+      <div class="ui negative message" *ngIf="error">
+        {{ error }}
+      </div>
       <form class="ui form" #form="ngForm" (submit)="onSubmit(form)" [class.loading]="loading">
-        <div class="two fields">
+        <div class="two fields" *ngIf="isSignUp">
           <div class="field">
             <label>First Name</label>
             <input type="text" name="firstName" placeholder="First Name" ngModel/>
@@ -20,7 +23,17 @@
           <label>Password</label>
           <input type="password" name="password" placeholder="Password" ngModel/>
         </div>
-        <button class="ui primary button login" type="submit">Sign Up</button>
+        <div class="actions">
+          <button class="ui primary button login" type="submit">{{ action | uppercase }}</button>
+          <span *ngIf="isLogin">
+            or
+            <a href="#" (click)="action = 'signup'">Sign Up</a>
+          </span>
+          <span *ngIf="isSignUp">
+            or
+            <a href="#" (click)="action = 'login'">Login</a>
+          </span>
+        </div>
       </form>
     </div>
   </div>

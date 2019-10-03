@@ -36,7 +36,8 @@
               "node_modules/semantic-ui-grid/grid.min.css",
               "node_modules/semantic-ui-form/form.min.css",
               "node_modules/semantic-ui-button/button.min.css",
-              "node_modules/semantic-ui-container/container.min.css"
+              "node_modules/semantic-ui-container/container.min.css",
+              "node_modules/semantic-ui-message/message.min.css"
             ],
             "scripts": [
               "src/assets/particles.js"
