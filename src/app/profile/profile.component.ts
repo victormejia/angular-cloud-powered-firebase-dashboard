@@ -6,6 +6,8 @@ import { UserProfile } from '../core/user-profile.model';
 import { ActivatedRoute } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { AuthService } from '../core/auth.service';
+import { AngularFireStorage } from '@angular/fire/storage';
+import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-profile',
@@ -20,13 +22,21 @@ export class ProfileComponent implements OnInit {
   loading = false;
   error: string;
 
+  downloadURL: Observable<string>;
+  uploadProgress: Observable<number>;
+
   constructor(
     public afAuth: AngularFireAuth, 
     public afs: AngularFirestore, 
     private route: ActivatedRoute,
-    private auth: AuthService
+    private auth: AuthService,
+    private afStorage: AngularFireStorage
   ) {
     this.uid = this.route.snapshot.paramMap.get('id');
+
+    this.downloadURL = this.afStorage
+      .ref(`users/${this.uid}/profile-image`)
+      .getDownloadURL();
   }
 
   ngOnInit() {
@@ -70,6 +80,35 @@ export class ProfileComponent implements OnInit {
     }
 
     this.loading = false;
+  }
+
+  fileChange(event) {
+    this.downloadURL = null;
+    this.error = null;
+
+    // get the file
+    const file = event.target.files[0];
+
+    // create the file refrence
+    const filePath = `users/${this.uid}/profile-image`;
+    const fileRef = this.afStorage.ref(filePath);
+
+    // upload and store the task
+    const task = this.afStorage.upload(filePath, file);
+    task.catch(error => this.error = error.message);
+
+    // observer percentage changes
+    this.uploadProgress = task.percentageChanges();
+
+    // get notified when the download URL is avaialbe
+    task
+      .snapshotChanges()
+      .pipe(
+        finalize(() => {
+          this.downloadURL = fileRef.getDownloadURL();
+        })
+      )
+      .subscribe();
   }
 
 }
