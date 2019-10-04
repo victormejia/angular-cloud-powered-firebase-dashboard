@@ -35,7 +35,7 @@ export class ProfileComponent implements OnInit {
   }
 
   async onSubmit(ngForm: NgForm) {
-    // this.loading = true;
+    this.loading = true;
 
     const { 
       email,
