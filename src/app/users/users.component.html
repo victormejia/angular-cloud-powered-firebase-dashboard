@@ -1,1 +1,20 @@
-<p>users works!</p>
+<table class="ui selectable celled table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Specialty</th>
+      <th>Secret Address</th>
+      <th>Phone</th>
+      <th>IP Address</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of users | async">
+      <td><a [routerLink]="['/profile/', user.uid]">{{ user.name }}</a></td>
+      <td>{{ user.specialty }}</td>
+      <td>{{ user.address }} {{ user.city }} {{ user.state }}, {{ user.zip }}</td>
+      <td>{{ user.phone }}</td>
+      <td>{{ user.ip }} </td>
+    </tr>
+  </tbody>
+</table>
