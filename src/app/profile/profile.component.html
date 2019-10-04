@@ -1,8 +1,17 @@
 <div class="add-form-container" *ngIf="item | async as userProfile">
+  <div class="ui negative message" *ngIf="error">
+    <p>{{ error }}</p>
+  </div>
   <div class="ui grid stackable">
     <div class="four wide column profile-image">
-      <img src="assets/profile-placeholder.png" alt="profile image" class="ui image">
+      <div *ngIf="downloadURL | async; let srcUrl">
+        <img class="ui image" [src]="srcUrl" alt="profile image">
+      </div>
+      <div *ngIf="!(downloadURL | async)">
+        <img src="assets/profile-placeholder.png" alt="profile image" class="ui image">
+      </div>
       <input type="file" class="file-input" #fileInput (change)="fileChange($event)" accept=".png,.jpg">
+      <progress max="100" [value]="uploadProgress | async"></progress>
       <button class="ui grey button upload-button" (click)="fileInput.click()">
         Upload Photo
       </button>
