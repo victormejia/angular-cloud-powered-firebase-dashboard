@@ -1,3 +1,51 @@
-<div *ngIf="item | async as userProfile">
-    <p>{{ userProfile | json }}</p>
+<div class="add-form-container" *ngIf="item | async as userProfile">
+  <form class="ui big form" #profileForm="ngForm" (submit)="onSubmit(profileForm)" [class.loading]="loading">
+    <div class="fields">
+      <div class="eight wide field">
+        <label>Name</label>
+        <input type="text" name="name" [ngModel]="userProfile.name">
+      </div>
+      <div class="eight wide field">
+        <label>Email</label>
+        <input type="text" name="email" disabled [ngModel]="userProfile.email">
+      </div>
+    </div>
+    <div class="fields">
+        <div class="six wide field">
+          <label>Address</label>
+          <input type="text" name="address" [ngModel]="userProfile.address">
+        </div>
+        <div class="five wide field">
+          <label>City</label>
+          <input type="text" name="city" [ngModel]="userProfile.city">
+        </div>
+        <div class="two wide field">
+          <label>State</label>
+          <input type="text" name="state" [ngModel]="userProfile.state">
+        </div>
+        <div class="three wide field">
+          <label>Zip</label>
+          <input type="text" name="zip" [ngModel]="userProfile.zip">
+        </div>
+    </div>
+    <div class="equal width fields">
+      <div class="field">
+        <label>Phone</label>
+        <input type="text" name="phone" [ngModel]="userProfile.phone">
+      </div>
+      <div class="field">
+        <label>Specialty</label>
+        <select class="specialty" name="specialty" [ngModel]="userProfile.specialty">
+          <option value="field agent">Field Agent</option>
+          <option value="covert operations">Covert Operations</option>
+          <option value="intelligence officer">Intelligence Officer</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>ip</label>
+        <input type="text" name="ip" [ngModel]="userProfile.ip">
+      </div>
+    </div>
+    <button type="submit" class="ui submit large grey button right floated">Submit</button>
+  </form>
 </div>
