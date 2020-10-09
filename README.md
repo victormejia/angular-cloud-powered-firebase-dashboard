@@ -1,6 +1,6 @@
 # Angular: Cloud-Powered Apps with Firebase
 
-## Exercise files for LinkedIn Learning Course: [LINK HERE]
+## Exercise files for LinkedIn Learning Course: https://www.linkedin.com/learning/angular-cloud-powered-apps-with-firebase/using-the-exercise-files-2
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.0.
 
